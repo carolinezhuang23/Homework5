@@ -174,8 +174,8 @@ setMethod(
     y_pos <- y@pos
     x_value <- x@value
     y_value <- y@value
-    values <- c()
-    positions <- c()
+    values <- numeric(0)
+    positions <- integer(0)
     i <- 1L; j <- 1L
     
     while(i <= length(x_pos) || j <= length(y_pos)){
@@ -233,7 +233,7 @@ setMethod(
     positions <- c()
     i <- 1L; j <- 1L
     
-    while(i <= length(x_pos) || j <= length(y_pos)){
+    while(i <= length(x_pos) && j <= length(y_pos)){
       if(x_pos[i] < y_pos[j]){
         i <- i + 1L
       }
@@ -241,8 +241,11 @@ setMethod(
         j <- j + 1L
       }
       else{
-        values <- append(values, x_value[i] * y_value[j])
-        positions <- append(positions, x_pos[i])
+        prod <- x_value[i] * y_value[j]
+        if(prod != 0){
+          values <- append(values, x_value[i] * y_value[j])
+          positions <- append(positions, x_pos[i])
+        }
         i <- i + 1L
         j <- j + 1L
       }
